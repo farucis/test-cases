@@ -1,0 +1,61 @@
+.table-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: -4px;
+}
+.table-header h1 {
+  display: flex;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  justify-content: center;
+}
+.table-header-line {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+}
+.table-header-text-line {
+  display: flex;
+  height: 5px;
+  background-color: var(--color-secondary);
+}
+.table-header-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+padding-right: 50px;
+}
+.table-header-buttons .btn:hover {
+  color: var(--color-secondary);
+}
+
+/* Buttons Tooltip */
+.bottom-tooltip {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: 18px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  width: 60px;
+  top: 100%;
+  left: 50%;
+  margin-left: -30px; /* Use half of the width (60/2 = 30), to center the tooltip */
+}
+
+.btn-filter:hover .bottom-tooltip {
+  visibility: visible;
+}
+
+.btn-add:hover .bottom-tooltip {
+  visibility: visible;
+}
