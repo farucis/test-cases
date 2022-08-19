@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
+import MenuNavBar from "./components/MenuNavBar/MenuNavBar";
+import SuiteTable from "./components/SuiteTable/SuiteTable";
+import TestCaseTable from "./components/TestCaseTable/TestCaseTable";
+
+//--------Export Default MenuNavBar--------//
 function App() {
+  const [isSelected, setIsSelected] = React.useState("Tests");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MenuNavBar isSelected={isSelected} setIsSelected={setIsSelected} />
+      <section>{selectSection(isSelected)}</section>
     </div>
   );
 }
 
 export default App;
+
+//--------Help Components--------//
+//----select Section----//
+const selectSection = (section) => {
+  switch (section) {
+    case "Tests":
+      return <TestCaseTable />;
+
+    case "Suites":
+      return <SuiteTable />;
+    default:
+      return <div>No section selected</div>;
+  }
+};
