@@ -1,0 +1,98 @@
+/* Menu nabar CSS */
+.navBar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 60px;
+  background-color: var(--color-primary);
+}
+.navBar-parent {
+  width: 50px;
+  margin-block: 10px;
+}
+
+.navBar-line {
+  min-width: 100%;
+  height: 1px;
+  margin-block: 20px;
+  background-color: var(--color-secondary);
+}
+
+/* Circle icon CSS */
+.circle-icon {
+  display: flex;
+  min-width: 100%;
+  height: 50px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-secondary);
+}
+.circle-icon-logo {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-image: url("../../assets/audiocodes--600.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.circle-icon h1 {
+  color: var(--color-white);
+  font-size: 1.3em;
+  font-weight: 400;
+}
+
+/* NavBar buttons CSS */
+.navBar-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.btn {
+  display: flex;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 30px;
+  color: var(--color-secondary);
+}
+.btn:hover {
+  transform: scale(1.1);
+  border: none;
+  color: var(--color-white);
+}
+
+.btn-selected {
+  display: flex;
+  color: var(--color-white);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 38px;
+}
+
+/* Buttons Tooltip */
+.right-tooltip {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: 18px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  width: 60px;
+  top: -5px;
+  left: 100%;
+}
+
+.btn:hover .right-tooltip {
+  visibility: visible;
+}
