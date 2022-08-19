@@ -1,14 +1,23 @@
 import React from "react";
 import "./Table.css";
 
+import TableTitles from "./TableTitles/TableTitles";
+
 //--------Export Default Table--------//
 const Table = ({ data }) => {
+  const [isSorted, setIsSorted] = React.useState("");
+  const [ss, setSs] = React.useState(false);
   return (
     <div className="tables-container" style={{ paddingTop: "30px" }}>
       <table className="table">
-        <TableTitles />
+        <TableTitles
+          isSorted={isSorted}
+          setIsSorted={setIsSorted}
+          setSs={setSs}
+          ss={ss}
+        />
         {data?.map((testcase) => (
-          <TableRow key={testcase.id} testcase={testcase} />
+          <TableRow key={testcase.id} testcase={testcase} setSs={setSs} />
         ))}
       </table>
     </div>
@@ -17,59 +26,69 @@ const Table = ({ data }) => {
 export default Table;
 
 //--------Help Components--------//
-//----Table Titles----//
-const TableTitles = () => (
-  <thead style={{ backgroundColor: "#DBEAF4" }}>
-    <tr>
-      <th className="table-title title-table" scope="col">
-        <div>Title</div>
-      </th>
-      <th className="table-title" scope="col">
-        Requirement
-      </th>
-      <th className="table-title" scope="col">
-        Assignee
-      </th>
-      <th className="table-title" scope="col">
-        Run
-      </th>
-      <th className="table-title" scope="col">
-        Status
-      </th>
-    </tr>
-  </thead>
-);
-
 //----Table Data Row----//
-const TableRow = ({ testcase }) => (
-  <tbody>
-    <tr className="align-bottom">
-      <th
-        className="table-data"
-        style={{
-          textAlign: "start",
-          marginTop: "10px",
-          display: "flex",
-        }}
-        scope="row"
-      >
-        {testcase.title}
-      </th>
-      <td className="table-data">{testcase.requirement}</td>
-      <td className="table-data">{testcase.assignee}</td>
-      <td className="table-data">{testcase.status}</td>
-      <td
-        className="table-data"
-        style={
-          testcase.Run === "Passed"
-            ? { color: "#26D64D" }
-            : testcase.Run === "Failed"
-            ? { color: "#A40909" }
-            : { color: "#000000", opacity: "0.3" }
-        }
-      >
-        {testcase.Run}
-      </td>
-    </tr>
-  </tbody>
-);
+const TableRow = ({ testcase, setSs }) => {
+  const toggle = () => {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const source = checkboxes[0];
+    var flag = true;
+    var count = 0;
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i] !== source && checkboxes[i].checked === false) {
+        flag = false;
+      } else {
+        count++;
+      }
+    }
+    source.checked = flag;
+
+    if (count < checkboxes.length && count > 1) {
+      setSs(true);
+    } else setSs(false);
+  };
+  return (
+    <tbody>
+      <tr className="align-bottom">
+        <th
+          className="table-data"
+          style={{
+            textAlign: "start",
+            marginTop: "10px",
+            display: "flex",
+          }}
+          scope="row"
+        >
+          <div>
+            <label className="container">
+              <input type="checkbox" id={testcase.title} onClick={toggle} />
+              <span className="checkmark"></span>
+            </label>
+            <div
+              style={{
+                marginLeft: "32px",
+              }}
+              htmlFor={testcase.title}
+            >
+              {testcase.title}
+            </div>
+          </div>
+        </th>
+        <td className="table-data">{testcase.requirement}</td>
+        <td className="table-data">{testcase.assignee}</td>
+        <td className="table-data">{testcase.status}</td>
+        <td
+          className="table-data"
+          style={
+            testcase.Run === "Passed"
+              ? { color: "#26D64D" }
+              : testcase.Run === "Failed"
+              ? { color: "#A40909" }
+              : { color: "#000000", opacity: "0.3" }
+          }
+        >
+          {testcase.Run}
+        </td>
+      </tr>
+    </tbody>
+  );
+};

@@ -4,16 +4,16 @@
   min-height: 1080px;
   background-color: rgb(65, 64, 64);
 }
-.App section{
+.App section {
   display: flex;
   flex-direction: column;
   height: 1080px;
-  width: 1860px; ;
+  width: 1860px;
   background-color: var(--color-white);
 }
 
 :root {
   --color-primary: #003031;
-  --color-secondary : #863654;
-  --color-white : #ffffff;
+  --color-secondary: #863654;
+  --color-white: #ffffff;
 }
