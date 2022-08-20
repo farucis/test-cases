@@ -3,13 +3,13 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: -4px;
+  padding-top: 20px;
 }
 .table-header h1 {
   display: flex;
   font-family: "Roboto";
   font-weight: 400;
-  font-size: 18px;
+  font-size: 21px;
   line-height: 21px;
   justify-content: center;
 }
@@ -27,7 +27,8 @@
   display: flex;
   flex-direction: row;
   gap: 20px;
-padding-right: 50px;
+  margin-right: 50px;
+  margin-bottom: 5px;
 }
 .table-header-buttons .btn:hover {
   color: var(--color-secondary);
@@ -36,26 +37,63 @@ padding-right: 50px;
 /* Buttons Tooltip */
 .bottom-tooltip {
   visibility: hidden;
-  background-color: black;
-  color: #fff;
+  background-color: #fff;
+  color: black;
+  border: 1px solid black;
   text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  font-size: 18px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
 
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
-  width: 60px;
+  padding: 1px 4px;
   top: 100%;
   left: 50%;
-  margin-left: -30px; /* Use half of the width (60/2 = 30), to center the tooltip */
+  transform: translateX(-50%); /* Place the tooltip in center */
 }
 
-.btn-filter:hover .bottom-tooltip {
+.btn:hover .bottom-tooltip {
   visibility: visible;
 }
 
-.btn-add:hover .bottom-tooltip {
-  visibility: visible;
+/* Filter */
+.filter-select {
+  display: flex;
+  padding-inline: 20px;
+  height: 30px;
+  width: 300px;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(134, 54, 84, 0.25);
+  border-radius: 50px;
+  cursor: pointer;
+}
+.filter-dropdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  position: absolute;
+  background-color: #ffffff;
+
+  filter: drop-shadow(0px 4px 4px rgba(134, 54, 84, 0.25));
+  border-radius: 5px;
+  z-index: 2;
+}
+.filter-dropdown-items {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  gap: 15px;
+}
+.filter-dropdown-item {
+  width: 300px;
+  padding: 6px 20px;
+}
+.filter-dropdown-item:hover {
+  background-color: var(--color-hover);
 }

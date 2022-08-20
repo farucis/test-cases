@@ -2,22 +2,28 @@ import React from "react";
 import { Icon } from "@iconify/react";
 
 //--------Export Default Table Titles--------//
-const TableTitles = ({ isSorted, setIsSorted, ss, setSs }) => {
+const TableTitles = ({ isSorted, setIsSorted, ...props }) => {
   const selectAll = () => {
     var checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const source = checkboxes[0];
     for (var i = 0; i < checkboxes.length; i++) {
       if (checkboxes[i] !== source) checkboxes[i].checked = source.checked;
     }
-    setSs(false);
+    props.setSelectAllCheckBoxs(source.checked);
+    props.setCheckBoxSelected(false);
   };
+
   return (
     <thead style={{ backgroundColor: "#DBEAF4" }}>
       <tr>
         <th className="table-title title-table" scope="col">
           <label className="container">
             <input type="checkbox" id="selectAll" onClick={selectAll} />
-            <span className={ss !== true ? "checkmark" : "minmark"}></span>
+            <span
+              className={
+                props.checkBoxSelected !== true ? "checkmark" : "minmark"
+              }
+            ></span>
           </label>
           <FirstTitle isSorted={isSorted} setIsSorted={setIsSorted} />
         </th>

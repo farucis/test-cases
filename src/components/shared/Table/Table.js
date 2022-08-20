@@ -4,20 +4,30 @@ import "./Table.css";
 import TableTitles from "./TableTitles/TableTitles";
 
 //--------Export Default Table--------//
-const Table = ({ data }) => {
+const Table = ({
+  data,
+  checkBoxSelected,
+  setCheckBoxSelected,
+  setSelectAllCheckBoxs,
+}) => {
   const [isSorted, setIsSorted] = React.useState("");
-  const [ss, setSs] = React.useState(false);
   return (
     <div className="tables-container" style={{ paddingTop: "30px" }}>
       <table className="table">
         <TableTitles
           isSorted={isSorted}
           setIsSorted={setIsSorted}
-          setSs={setSs}
-          ss={ss}
+          checkBoxSelected={checkBoxSelected}
+          setCheckBoxSelected={setCheckBoxSelected}
+          setSelectAllCheckBoxs={setSelectAllCheckBoxs}
         />
         {data?.map((testcase) => (
-          <TableRow key={testcase.id} testcase={testcase} setSs={setSs} />
+          <TableRow
+            key={testcase.id}
+            testcase={testcase}
+            setCheckBoxSelected={setCheckBoxSelected}
+            setSelectAllCheckBoxs={setSelectAllCheckBoxs}
+          />
         ))}
       </table>
     </div>
@@ -27,7 +37,7 @@ export default Table;
 
 //--------Help Components--------//
 //----Table Data Row----//
-const TableRow = ({ testcase, setSs }) => {
+const TableRow = ({ testcase, setCheckBoxSelected, setSelectAllCheckBoxs }) => {
   const toggle = () => {
     var checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const source = checkboxes[0];
@@ -43,8 +53,14 @@ const TableRow = ({ testcase, setSs }) => {
     source.checked = flag;
 
     if (count < checkboxes.length && count > 1) {
-      setSs(true);
-    } else setSs(false);
+      setCheckBoxSelected(true);
+    } else if (count === checkboxes.length) {
+      setSelectAllCheckBoxs(true);
+      setCheckBoxSelected(false);
+    } else {
+      setCheckBoxSelected(false);
+      setSelectAllCheckBoxs(false);
+    }
   };
   return (
     <tbody>
@@ -75,7 +91,6 @@ const TableRow = ({ testcase, setSs }) => {
         </th>
         <td className="table-data">{testcase.requirement}</td>
         <td className="table-data">{testcase.assignee}</td>
-        <td className="table-data">{testcase.status}</td>
         <td
           className="table-data"
           style={
@@ -88,6 +103,7 @@ const TableRow = ({ testcase, setSs }) => {
         >
           {testcase.Run}
         </td>
+        <td className="table-data">{testcase.status}</td>
       </tr>
     </tbody>
   );

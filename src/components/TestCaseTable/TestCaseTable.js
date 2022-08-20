@@ -6,11 +6,25 @@ import { testDB } from "../shared/LocalDB";
 
 //--------Export Default TestCaseTable--------//
 const TestCaseTable = () => {
+  const [selectAllCheckBoxs, setSelectAllCheckBoxs] = React.useState(false);
+  const [checkBoxSelected, setCheckBoxSelected] = React.useState(false);
   return (
     <section className="test-table-container">
       <div className="test-table-parent">
-        <TableHeader title="Test Cases" filter={true} add={true} />
-        <Table data={testDB.testcases} />
+        <TableHeader
+          title="Test Cases"
+          filter={true}
+          add={true}
+          setCheckBoxSelected={setCheckBoxSelected}
+          checkBoxSelected={checkBoxSelected}
+          selectAllCheckBoxs={selectAllCheckBoxs}
+        />
+        <Table
+          data={testDB.testcases}
+          setCheckBoxSelected={setCheckBoxSelected}
+          checkBoxSelected={checkBoxSelected}
+          setSelectAllCheckBoxs={setSelectAllCheckBoxs}
+        />
       </div>
     </section>
   );
