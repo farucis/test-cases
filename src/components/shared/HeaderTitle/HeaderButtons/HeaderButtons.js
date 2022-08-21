@@ -16,6 +16,7 @@ const HeaderButtons = ({ ...props }) => {
       <SelectTestButton {...props} />
       <NavToNewTestButton {...props} setFilterIsOpen={setFilterIsOpen} />
       <AddNewTestButton {...props} />
+      <RemoveFromSuiteButton {...props} />
     </div>
   );
 };
@@ -40,7 +41,8 @@ const FilterButton = ({ ...props }) =>
 
 //----Select Test Button----//
 const SelectTestButton = ({ ...props }) =>
-  (props.checkBoxSelected || props.selectAllCheckBoxs) && (
+  props.add &&
+  (props.checkBoxSelected || props.selectAllCheckBoxs) &&(
     <>
       <div
         style={{
@@ -53,7 +55,7 @@ const SelectTestButton = ({ ...props }) =>
         <Icon icon="ic:round-add" />
         <span className="bottom-tooltip">Add to Suite</span>
       </button>
-      <button className="btn btn-remove">
+      <button className="btn btn-remove"  onClick={()=>props.setDialogIsOpen(true)}>
         <Icon icon="eva:close-outline" />
         <span className="bottom-tooltip">Remove</span>
       </button>
@@ -97,7 +99,6 @@ const AddNewTestButton = ({ ...props }) => {
     } else {
       props.setIsValid(false);
     }
-    console.log(data);
   };
 
   return (
@@ -118,3 +119,16 @@ const AddNewTestButton = ({ ...props }) => {
     )
   );
 };
+
+//----Remove From Suite Button----//
+const RemoveFromSuiteButton = ({ ...props }) => {
+  return (
+    props.remove &&
+    (props.checkBoxSelected || props.selectAllCheckBoxs) && (
+      <button className="btn btn-remove" onClick={()=>props.setDialogIsOpen(true)}>
+        <Icon icon="eva:close-outline" />
+        <span className="bottom-tooltip">Remove</span>
+      </button>
+    )
+  );
+}
