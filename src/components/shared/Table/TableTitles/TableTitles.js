@@ -27,16 +27,16 @@ const TableTitles = ({ isSorted, setIsSorted, ...props }) => {
           </label>
           <FirstTitle isSorted={isSorted} setIsSorted={setIsSorted} />
         </th>
-        <th className="table-title" scope="col">
+        <th className="table-title" style={{ width: "200px" }} scope="col">
           Requirement
         </th>
-        <th className="table-title" scope="col">
+        <th className="table-title" style={{ width: "250px" }} scope="col">
           Assignee
         </th>
-        <th className="table-title" scope="col">
+        <th className="table-title" style={{ width: "100px" }} scope="col">
           Run
         </th>
-        <th className="table-title" scope="col">
+        <th className="table-title" style={{ width: "100px" }} scope="col">
           Status
         </th>
       </tr>
