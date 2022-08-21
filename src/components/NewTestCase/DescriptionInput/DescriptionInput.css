@@ -1,0 +1,42 @@
+.description-input-container > input {
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 50px;
+  padding: 2px 15px;
+  cursor: pointer;
+  transition: visibility 0.1s ease-out;
+  color: rgb(255, 255, 255);
+}
+
+.description-input-container > input:focus {
+  height: 120px;
+  border-radius: 20px;
+  color: rgb(0, 0, 0);
+}
+
+.input-effects {
+  visibility: hidden;
+  position: absolute;
+  height: 32px;
+  width: 87.5%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  left: 15px;
+  gap: 15px;
+  margin-top: 4px;
+  margin-left: 4px;
+  transition: visibility 0.1s ease-in-out;
+}
+
+input:focus ~ .input-effects {
+  visibility: visible;
+}
+
+.input-effects-button {
+  color: rgb(0, 0, 0);
+  margin-top: -1px;
+}
+
+.custom-file-input {
+  width: 0;
+}

@@ -18,3 +18,20 @@
   --color-white: #ffffff;
   --color-hover: #EEF2F3;
 }
+
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--color-secondary);
+}

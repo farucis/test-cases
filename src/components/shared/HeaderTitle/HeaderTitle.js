@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./TableHeader.css";
+import "./HeaderTitle.css";
 import HeaderButtons from "./HeaderButtons/HeaderButtons";
 
 //--------Export Default MenuNavBar--------//

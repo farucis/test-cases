@@ -1,0 +1,25 @@
+.table-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 20px;
+}
+.table-header h1 {
+  display: flex;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
+  justify-content: center;
+}
+.table-header-line {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+}
+.table-header-text-line {
+  display: flex;
+  height: 5px;
+  background-color: var(--color-secondary);
+}

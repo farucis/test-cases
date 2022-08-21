@@ -1,57 +1,7 @@
-import React from "react";
 import { Icon } from "@iconify/react";
+import React from "react";
+import "./Filter.css";
 
-//--------Export Default Header Buttons--------//
-const HeaderButtons = ({ ...props }) => {
-  const [FilterisOpen, setFilterIsOpen] = React.useState(false);
-
-  return (
-    <div className="table-header-buttons">
-      {props.filter &&
-        (FilterisOpen ? (
-          <Filter />
-        ) : (
-          <button
-            className="btn btn-filter"
-            onClick={() => setFilterIsOpen(true)}
-          >
-            <Icon icon="fluent:filter-24-regular" />
-            <span className="bottom-tooltip">Filter</span>
-          </button>
-        ))}
-      {(props.checkBoxSelected || props.selectAllCheckBoxs) && (
-        <>
-          <div
-            style={{
-              backgroundColor: "#863654",
-              height: "85%",
-              width: "1px",
-            }}
-          />
-          <button className="btn btn-add">
-            <Icon icon="ic:round-add" />
-            <span className="bottom-tooltip">Add to Suite</span>
-          </button>
-          <button className="btn btn-remove">
-            <Icon icon="eva:close-outline" />
-            <span className="bottom-tooltip">Remove</span>
-          </button>
-        </>
-      )}
-      {props.add && !props.checkBoxSelected && !props.selectAllCheckBoxs && (
-        <button className="btn btn-add">
-          <Icon icon="ic:round-add" />
-          <span className="bottom-tooltip">Add</span>
-        </button>
-      )}
-    </div>
-  );
-};
-
-export default HeaderButtons;
-
-//--------Help Components--------//
-//----Filter----//
 const Filter = () => {
   const filterDB = {
     name: "filter",
@@ -61,12 +11,12 @@ const Filter = () => {
         value: "Requirement",
         options: [
           {
-            name: "ST functional",
-            value: "ST functional",
+            name: "Strat with",
+            value: "Strat with",
           },
           {
-            name: "MI functional",
-            value: "MI functional",
+            name: "Equals to",
+            value: "Equals to",
           },
         ],
       },
@@ -183,3 +133,5 @@ const Filter = () => {
     </div>
   );
 };
+
+export default Filter;
