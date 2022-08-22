@@ -13,7 +13,7 @@ const SuiteTable = () => {
   const [dialogisOpen, setDialogIsOpen] = React.useState(false);
 
   const data = testDB.testcases.filter((item) => item.suite === "1");
-  const [suitesData, setSuitesData] = React.useState(data);
+  const [sortData, setSortData] = React.useState(data.slice(0));
 
   return (
     <div className="suite-table-container">
@@ -29,7 +29,9 @@ const SuiteTable = () => {
           setDialogIsOpen={setDialogIsOpen}
         />
         <Table
-          data={suitesData}
+          data={data}
+          sortData={sortData}
+          setSortData={setSortData}
           setCheckBoxSelected={setCheckBoxSelected}
           checkBoxSelected={checkBoxSelected}
           setSelectAllCheckBoxs={setSelectAllCheckBoxs}

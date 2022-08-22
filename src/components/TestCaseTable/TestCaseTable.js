@@ -13,6 +13,7 @@ const TestCaseTable = () => {
   const [addNewSelected, setAddNewSelected] = React.useState(false);
 
   const [dialogisOpen, setDialogIsOpen] = React.useState(false);
+  const [sortData, setSortData] = React.useState(testDB.testcases.slice(0));
 
   return (
     <section className="test-table-container">
@@ -29,6 +30,8 @@ const TestCaseTable = () => {
         />
         <Table
           data={testDB.testcases}
+          sortData={sortData}
+          setSortData={setSortData}
           setCheckBoxSelected={setCheckBoxSelected}
           checkBoxSelected={checkBoxSelected}
           setSelectAllCheckBoxs={setSelectAllCheckBoxs}

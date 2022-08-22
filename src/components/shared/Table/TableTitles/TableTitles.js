@@ -21,11 +21,17 @@ const TableTitles = ({ isSorted, setIsSorted, ...props }) => {
             <input type="checkbox" id="selectAll" onClick={selectAll} />
             <span
               className={
-                props.checkBoxSelected !== true ? "checkmark" : "minmark"
+                props.checkBoxSelected !== true
+                  ? "checkmark"
+                  : "checkmark minusMark"
               }
             ></span>
           </label>
-          <FirstTitle isSorted={isSorted} setIsSorted={setIsSorted} />
+          <FirstTitle
+            isSorted={isSorted}
+            setIsSorted={setIsSorted}
+            {...props}
+          />
         </th>
         <th className="table-title" style={{ width: "200px" }} scope="col">
           Requirement
@@ -48,13 +54,25 @@ export default TableTitles;
 
 //--------Help Components--------//
 //----First Title----//
-const FirstTitle = ({ isSorted, setIsSorted }) => {
+const FirstTitle = ({ isSorted, setIsSorted, ...props }) => {
+  const sortuUp = () => {
+    props.sortData.sort((a, b) => {
+      if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+
+      if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+
+      return 0;
+    });
+  };
+
   const sortHandler = () => {
     switch (isSorted) {
       case "":
+        sortuUp();
         setIsSorted("up");
         break;
       case "up":
+        props.sortData.reverse();
         setIsSorted("down");
         break;
       case "down":

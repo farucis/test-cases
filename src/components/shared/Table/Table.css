@@ -5,8 +5,6 @@
   font-size: 18px;
   text-align: center;
   height: 50px;
-
-  
 }
 .table-data {
   font-family: "Roboto";
@@ -57,6 +55,8 @@
   background-color: #fff;
   border: 2px solid #000;
   border-radius: 20%;
+  transition: transform 0.2s ease-in-out;
+
 }
 
 /* On mouse-over, add a grey background color */
@@ -90,4 +90,44 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+  transition: transform 0.2s ease-in-out;
+
+}
+
+/* Create a custom minus checkbox */
+.minusMark {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: var(--color-secondary);
+  border: 2px solid #000;
+  border-radius: 20%;
+  transition: transform 0.2s ease-in-out;
+
+}
+
+/* Create the checkmark/indicator  */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: block;
+}
+
+/* Style the checkmark minus  */
+
+.container .minusMark:after {
+  left: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 0px 0;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  transition: transform 0.2s ease-in-out;
+}
+.container:hover input ~ .minusMark {
+  background-color: var(--color-secondary);
 }

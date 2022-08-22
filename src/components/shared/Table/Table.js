@@ -6,6 +6,8 @@ import TableTitles from "./TableTitles/TableTitles";
 //--------Export Default Table--------//
 const Table = ({
   data,
+  sortData,
+  setSortData,
   checkBoxSelected,
   setCheckBoxSelected,
   setSelectAllCheckBoxs,
@@ -15,20 +17,33 @@ const Table = ({
     <div className="tables-container" style={{ paddingTop: "30px" }}>
       <table className="table">
         <TableTitles
+          data={data}
+          sortData={sortData}
+          setSortData={setSortData}
           isSorted={isSorted}
           setIsSorted={setIsSorted}
           checkBoxSelected={checkBoxSelected}
           setCheckBoxSelected={setCheckBoxSelected}
           setSelectAllCheckBoxs={setSelectAllCheckBoxs}
         />
-        {data?.map((testcase) => (
-          <TableRow
-            key={testcase.id}
-            testcase={testcase}
-            setCheckBoxSelected={setCheckBoxSelected}
-            setSelectAllCheckBoxs={setSelectAllCheckBoxs}
-          />
-        ))}
+
+        {isSorted === ""
+          ? data?.map((testcase) => (
+              <TableRow
+                key={testcase.id}
+                testcase={testcase}
+                setCheckBoxSelected={setCheckBoxSelected}
+                setSelectAllCheckBoxs={setSelectAllCheckBoxs}
+              />
+            ))
+          : sortData?.map((testcase) => (
+              <TableRow
+                key={testcase.id}
+                testcase={testcase}
+                setCheckBoxSelected={setCheckBoxSelected}
+                setSelectAllCheckBoxs={setSelectAllCheckBoxs}
+              />
+            ))}
       </table>
     </div>
   );
