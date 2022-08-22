@@ -8,14 +8,6 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
-//----Add New Test Case to Firebase DB----//
-export const AddNewTestCase = async (testCase) => {
-  try {
-    await addDoc(collection(db, "testCase"), testCase);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-};
 
 //----get all  Tests Case from Firebase DB----//
 export const GetAllTestCase = async () => {
@@ -33,6 +25,16 @@ export const GetAllTestCase = async () => {
     console.error("Error adding document: ", e);
   }
 };
+
+//----Add New Test Case to Firebase DB----//
+export const AddNewTestCase = async (testCase) => {
+  try {
+    await addDoc(collection(db, "testCase"), testCase);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
+
 
 //----Update Test Case Add To Suite----//
 export const addToSuite = async (selectedTestsCaseId) => {

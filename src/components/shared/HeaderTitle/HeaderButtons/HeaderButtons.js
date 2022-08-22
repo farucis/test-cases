@@ -6,7 +6,8 @@ import {
   AddNewTestCase,
   addToSuite,
 } from "../../../../BackEnd/FireStore/TestCase/TestCase";
-
+import useStore from "../../../../StateMan/store";
+import { setFalse } from "../../RemoveDialog/RemoveDialog";
 //--------Export Default Header Buttons--------//
 const HeaderButtons = ({ ...props }) => {
   const [FilterisOpen, setFilterIsOpen] = React.useState(false);
@@ -58,7 +59,10 @@ const SelectTestButton = ({ ...props }) => {
         />
         <button
           className="btn btn-add"
-          onClick={() => addToSuite(selectedIDs())}
+          onClick={() => {
+            addToSuite(selectedIDs());
+            setFalse(props.setCheckBoxSelected);
+          }}
         >
           <Icon icon="ic:round-add" />
           <span className="bottom-tooltip">Add to Suite</span>
@@ -102,6 +106,7 @@ const AddNewTestButton = ({ ...props }) => {
     Run: "No Run",
     suite: "0",
   };
+  const AddNewTest = useStore((state) => state.AddNewTestCase);
 
   const addNewHandler = () => {
     if (document.getElementById("nameInput").value.length > 0) {
@@ -117,6 +122,7 @@ const AddNewTestButton = ({ ...props }) => {
       else if (data.Run === "Failed") data.status = "WIP";
       else if (data.Run === "No Run") data.status = "Open";
       AddNewTestCase(data);
+      AddNewTest(data);
     } else {
       props.setIsValid(false);
     }

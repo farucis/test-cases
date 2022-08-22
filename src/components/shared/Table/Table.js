@@ -28,17 +28,17 @@ const Table = ({
         />
 
         {isSorted === ""
-          ? data?.map((testcase) => (
+          ? data?.map((testcase, index) => (
               <TableRow
-                key={testcase.id}
+                key={index}
                 testcase={testcase}
                 setCheckBoxSelected={setCheckBoxSelected}
                 setSelectAllCheckBoxs={setSelectAllCheckBoxs}
               />
             ))
-          : sortData?.map((testcase) => (
+          : sortData?.map((testcase, index) => (
               <TableRow
-                key={testcase.id}
+                key={index}
                 testcase={testcase}
                 setCheckBoxSelected={setCheckBoxSelected}
                 setSelectAllCheckBoxs={setSelectAllCheckBoxs}

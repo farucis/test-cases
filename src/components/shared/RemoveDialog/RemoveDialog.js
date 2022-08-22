@@ -5,12 +5,33 @@ import {
   deleteSuite,
   deleteTestsCase,
 } from "../../../BackEnd/FireStore/TestCase/TestCase";
+import useStore from "../../../StateMan/store";
 
 const RemoveDialog = (props) => {
+  const testCase = useStore((state) => state.testCase);
+
   const removeHandler = () => {
-    if (props.removeFrom === "suitecase") deleteSuite(selectedIDs());
-    else if (props.removeFrom === "testcase") deleteTestsCase(selectedIDs());
+    const selectedTestsCaseId = selectedIDs();
+
+    for (let i = 0; i < selectedTestsCaseId.length; i++) {
+      const index = testCase.findIndex(
+        (obj) => obj.id === selectedTestsCaseId[i]
+      );
+      if (index > -1 && testCase[index].id === selectedTestsCaseId[i]) {
+        if (props.removeFrom === "suitecase") {
+          testCase.splice(index, 1);
+        } else if (props.removeFrom === "testcase") testCase.splice(index, 1);
+      }
+    }
+
+    if (props.removeFrom === "suitecase") {
+      deleteSuite(selectedTestsCaseId);
+    } else if (props.removeFrom === "testcase") {
+      deleteTestsCase(selectedTestsCaseId);
+    }
+
     props.setDialogIsOpen(false);
+    setFalse(props.setCheckBoxSelected);
   };
 
   return (
@@ -36,3 +57,12 @@ const RemoveDialog = (props) => {
 };
 
 export default RemoveDialog;
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+export const setFalse = (setCheckBoxSelected) => {
+  setCheckBoxSelected(false);
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].checked = false;
+  }
+};

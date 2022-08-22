@@ -5,6 +5,7 @@ import Table from "../shared/Table/Table";
 import NewTestCase from "../NewTestCase/NewTestCase";
 import RemoveDialog from "../shared/RemoveDialog/RemoveDialog";
 
+import useStore from "../../StateMan/store";
 import { GetAllTestCase } from "../../BackEnd/FireStore/TestCase/TestCase";
 
 //--------Export Default TestCaseTable--------//
@@ -15,12 +16,14 @@ const TestCaseTable = () => {
 
   const [dialogisOpen, setDialogIsOpen] = React.useState(false);
 
-  const [data, setData] = React.useState(null);
-  const [sortData, setSortData] = React.useState(null);
+  const data = useStore((state) => state.testCase);
+  const setData = useStore((state) => state.setData);
+  const sortData = useStore((state) => state.sortData);
+  const setSortData = useStore((state) => state.setSortData);
 
   React.useEffect(() => {
     getData();
-  }, []);
+  }, [data]);// eslint-disable-line react-hooks/exhaustive-deps
 
   const getData = async () => {
     const d = await GetAllTestCase();
@@ -60,6 +63,7 @@ const TestCaseTable = () => {
         title1="You are going to delete selected test"
         title="You are going to delete selected tests"
         removeFrom="testcase"
+        setCheckBoxSelected={setCheckBoxSelected}
       />
     </section>
   );
