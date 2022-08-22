@@ -91,7 +91,7 @@ const TableRow = ({ testcase, setCheckBoxSelected, setSelectAllCheckBoxs }) => {
         >
           <div>
             <label className="container">
-              <input type="checkbox" id={testcase.title} onClick={toggle} />
+              <input type="checkbox" id={testcase.id} onClick={toggle} />
               <span className="checkmark"></span>
             </label>
             <div

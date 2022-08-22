@@ -2,6 +2,10 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import "./HeaderButtons.css";
 import Filter from "../Filter/Filter";
+import {
+  AddNewTestCase,
+  addToSuite,
+} from "../../../../BackEnd/FireStore/TestCase/TestCase";
 
 //--------Export Default Header Buttons--------//
 const HeaderButtons = ({ ...props }) => {
@@ -40,28 +44,36 @@ const FilterButton = ({ ...props }) =>
   ));
 
 //----Select Test Button----//
-const SelectTestButton = ({ ...props }) =>
-  props.add &&
-  (props.checkBoxSelected || props.selectAllCheckBoxs) &&(
-    <>
-      <div
-        style={{
-          backgroundColor: "#863654",
-          height: "85%",
-          width: "1px",
-        }}
-      />
-      <button className="btn btn-add">
-        <Icon icon="ic:round-add" />
-        <span className="bottom-tooltip">Add to Suite</span>
-      </button>
-      <button className="btn btn-remove"  onClick={()=>props.setDialogIsOpen(true)}>
-        <Icon icon="eva:close-outline" />
-        <span className="bottom-tooltip">Remove</span>
-      </button>
-    </>
+const SelectTestButton = ({ ...props }) => {
+  return (
+    props.add &&
+    (props.checkBoxSelected || props.selectAllCheckBoxs) && (
+      <>
+        <div
+          style={{
+            backgroundColor: "#863654",
+            height: "85%",
+            width: "1px",
+          }}
+        />
+        <button
+          className="btn btn-add"
+          onClick={() => addToSuite(selectedIDs())}
+        >
+          <Icon icon="ic:round-add" />
+          <span className="bottom-tooltip">Add to Suite</span>
+        </button>
+        <button
+          className="btn btn-remove"
+          onClick={() => props.setDialogIsOpen(true)}
+        >
+          <Icon icon="eva:close-outline" />
+          <span className="bottom-tooltip">Remove</span>
+        </button>
+      </>
+    )
   );
-
+};
 //----Nav To New Test page Button----//
 const NavToNewTestButton = ({ ...props }) =>
   props.add &&
@@ -81,21 +93,30 @@ const NavToNewTestButton = ({ ...props }) =>
 
 //----Add New Test Button----//
 const AddNewTestButton = ({ ...props }) => {
-  var data = { name: "", description: "", assignee: "", run: "", status: "" };
+  var data = {
+    title: "",
+    description: "",
+    requirement: "functional",
+    assignee: "user name",
+    status: "Open",
+    Run: "No Run",
+    suite: "0",
+  };
 
   const addNewHandler = () => {
     if (document.getElementById("nameInput").value.length > 0) {
       props.setAddNewSelected(false);
       props.setIsValid(true);
 
-      data.name = document.getElementById("nameInput").value;
+      data.title = document.getElementById("nameInput").value;
       data.description = document.getElementById("descriptionInput").value;
       //data.assignee = document.getElementById("assigneeInput").value;
       //data.run = document.getElementById("runInput").value;
 
-      if (data.run === "Passed") data.status = "Done";
-      else if (data.run === "Failed") data.status = "WIP";
-      else if (data.run === "No Run") data.status = "Open";
+      if (data.Run === "Passed") data.status = "Done";
+      else if (data.Run === "Failed") data.status = "WIP";
+      else if (data.Run === "No Run") data.status = "Open";
+      AddNewTestCase(data);
     } else {
       props.setIsValid(false);
     }
@@ -125,10 +146,25 @@ const RemoveFromSuiteButton = ({ ...props }) => {
   return (
     props.remove &&
     (props.checkBoxSelected || props.selectAllCheckBoxs) && (
-      <button className="btn btn-remove" onClick={()=>props.setDialogIsOpen(true)}>
+      <button
+        className="btn btn-remove"
+        onClick={() => props.setDialogIsOpen(true)}
+      >
         <Icon icon="eva:close-outline" />
         <span className="bottom-tooltip">Remove</span>
       </button>
     )
   );
-}
+};
+
+///////////////////////////////////////////////////////////////////////
+export const selectedIDs = () => {
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  var selected = [];
+  for (var i = 1; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      selected.push(checkboxes[i].id);
+    }
+  }
+  return selected;
+};
