@@ -42,10 +42,12 @@ const CircleIcon = (props) => {
 export const navBarButtons = [
   {
     name: "Tests",
+    tooltip: "Test Development",
     icon: "ph:note-pencil-light",
   },
   {
     name: "Suites",
+    tooltip: "Suite",
     icon: "uit:bag",
   },
 ];
@@ -59,7 +61,7 @@ const NavBarButtons = ({ isSelected, setIsSelected }) => {
           onClick={() => setIsSelected(button.name)}
         >
           <Icon icon={button.icon} />
-          <span className="right-tooltip">{button.name}</span>
+          <span className="right-tooltip">{button.tooltip}</span>
         </button>
       ))}
     </nav>
