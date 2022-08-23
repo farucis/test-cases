@@ -23,7 +23,7 @@ const TestCaseTable = () => {
 
   React.useEffect(() => {
     getData();
-  }, [data]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getData = async () => {
     const d = await GetAllTestCase();
@@ -43,6 +43,7 @@ const TestCaseTable = () => {
           selectAllCheckBoxs={selectAllCheckBoxs}
           setAddNewSelected={setAddNewSelected}
           setDialogIsOpen={setDialogIsOpen}
+          setSelectAllCheckBoxs={setSelectAllCheckBoxs}
         />
         <Table
           data={data}

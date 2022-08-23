@@ -1,5 +1,6 @@
 import React from "react";
 import "./Table.css";
+import useStore from "../../../StateMan/store";
 
 import TableTitles from "./TableTitles/TableTitles";
 
@@ -53,6 +54,8 @@ export default Table;
 //--------Help Components--------//
 //----Table Data Row----//
 const TableRow = ({ testcase, setCheckBoxSelected, setSelectAllCheckBoxs }) => {
+  const setFilterIsOpen = useStore((state) => state.setFilterIsOpen);
+
   const toggle = () => {
     var checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const source = checkboxes[0];
@@ -76,7 +79,9 @@ const TableRow = ({ testcase, setCheckBoxSelected, setSelectAllCheckBoxs }) => {
       setCheckBoxSelected(false);
       setSelectAllCheckBoxs(false);
     }
+    setFilterIsOpen(false);
   };
+
   return (
     <tbody>
       <tr className="align-bottom">

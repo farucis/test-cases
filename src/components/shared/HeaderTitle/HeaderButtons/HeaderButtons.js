@@ -10,7 +10,9 @@ import useStore from "../../../../StateMan/store";
 import { setFalse } from "../../RemoveDialog/RemoveDialog";
 //--------Export Default Header Buttons--------//
 const HeaderButtons = ({ ...props }) => {
-  const [FilterisOpen, setFilterIsOpen] = React.useState(false);
+  const FilterisOpen = useStore((state) => state.FilterisOpen);
+  const setFilterIsOpen = useStore((state) => state.setFilterIsOpen);
+
   return (
     <div className="table-header-buttons">
       <FilterButton
@@ -33,11 +35,16 @@ export default HeaderButtons;
 const FilterButton = ({ ...props }) =>
   props.filter &&
   (props.FilterisOpen ? (
-    <Filter />
+    <Filter setCheckBoxSelected={props.setCheckBoxSelected} />
   ) : (
     <button
       className="btn btn-filter"
-      onClick={() => props.setFilterIsOpen(true)}
+      onClick={() => {
+        props.setFilterIsOpen(true);
+        props.setCheckBoxSelected(false);
+        setFalse(props.setCheckBoxSelected);
+        props.setSelectAllCheckBoxs(false);
+      }}
     >
       <Icon icon="fluent:filter-24-regular" />
       <span className="bottom-tooltip">Filter</span>

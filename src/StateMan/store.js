@@ -11,6 +11,14 @@ const store = create((set) => ({
 
   deleteSuites: (payload) =>
     set((state) => ({ testCase: [...state.testCase] })),
+
+  FilterisOpen: false,
+  setFilterIsOpen: (payload) => set(() => ({ FilterisOpen: payload })),
+
+  selectedFilterName:null,
+  setSelectedFilterName: (payload) => set(() => ({ selectedFilterName: payload })),
+
+
 }));
 
 export default store;

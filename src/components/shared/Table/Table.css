@@ -56,7 +56,10 @@
   border: 2px solid #000;
   border-radius: 20%;
   transition: transform 0.2s ease-in-out;
+}
 
+.cmt {
+  background-color: #dbeaf4;
 }
 
 /* On mouse-over, add a grey background color */
@@ -91,9 +94,14 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   transition: transform 0.2s ease-in-out;
-
+}
+.container .cmt:after {
+  border-color: #dbeaf4;
 }
 
+.container input:checked ~ .cmt:after {
+  border-color: #fff;
+}
 /* Create a custom minus checkbox */
 .minusMark {
   position: absolute;
@@ -105,7 +113,6 @@
   border: 2px solid #000;
   border-radius: 20%;
   transition: transform 0.2s ease-in-out;
-
 }
 
 /* Create the checkmark/indicator  */

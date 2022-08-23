@@ -1,5 +1,6 @@
 import React from "react";
 import "./MenuNavBar.css";
+import useStore from "../../StateMan/store";
 
 import { Icon } from "@iconify/react";
 
@@ -52,13 +53,18 @@ export const navBarButtons = [
   },
 ];
 const NavBarButtons = ({ isSelected, setIsSelected }) => {
+  const setFilterIsOpen = useStore((state) => state.setFilterIsOpen);
+
   return (
     <nav className="navBar-buttons">
       {navBarButtons.map((button, index) => (
         <button
           key={index}
           className={isSelected === button.name ? "btn-selected" : "btn"}
-          onClick={() => setIsSelected(button.name)}
+          onClick={() => {
+            setIsSelected(button.name);
+            setFilterIsOpen(false);
+          }}
         >
           <Icon icon={button.icon} />
           <span className="right-tooltip">{button.tooltip}</span>

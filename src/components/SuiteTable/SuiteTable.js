@@ -20,7 +20,7 @@ const SuiteTable = () => {
 
   React.useEffect(() => {
     getData();
-  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getData = async () => {
     var d = await GetAllTestCase();
@@ -41,6 +41,7 @@ const SuiteTable = () => {
           checkBoxSelected={checkBoxSelected}
           selectAllCheckBoxs={selectAllCheckBoxs}
           setDialogIsOpen={setDialogIsOpen}
+          setSelectAllCheckBoxs={setSelectAllCheckBoxs}
         />
         <Table
           data={data}

@@ -1,8 +1,10 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+import useStore from "../../../../StateMan/store";
 
 //--------Export Default Table Titles--------//
 const TableTitles = ({ isSorted, setIsSorted, ...props }) => {
+  const setFilterIsOpen = useStore((state) => state.setFilterIsOpen);
   const selectAll = () => {
     var checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const source = checkboxes[0];
@@ -11,6 +13,7 @@ const TableTitles = ({ isSorted, setIsSorted, ...props }) => {
     }
     props.setSelectAllCheckBoxs(source.checked);
     props.setCheckBoxSelected(false);
+    setFilterIsOpen(false);
   };
 
   return (
@@ -22,7 +25,7 @@ const TableTitles = ({ isSorted, setIsSorted, ...props }) => {
             <span
               className={
                 props.checkBoxSelected !== true
-                  ? "checkmark"
+                  ? "checkmark cmt"
                   : "checkmark minusMark"
               }
             ></span>
@@ -76,6 +79,7 @@ const FirstTitle = ({ isSorted, setIsSorted, ...props }) => {
         setIsSorted("down");
         break;
       case "down":
+        props.setSortData(props.data.slice(0));
         setIsSorted("");
         break;
       default:
