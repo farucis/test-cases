@@ -8,7 +8,6 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
-
 //----get all  Tests Case from Firebase DB----//
 export const GetAllTestCase = async () => {
   try {
@@ -26,6 +25,33 @@ export const GetAllTestCase = async () => {
   }
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+export const getTestCaseByTitle = async (title) => {
+  let testCase = null;
+
+  const TestCaseSnapshot = await getDocs(collection(db, "testCase"));
+
+  TestCaseSnapshot.forEach((doc) => {
+    if (doc.data().title === title) {
+      const newtestCase = {
+        id: doc.id,
+        title: doc.data().title,
+        Run: doc.data().Run,
+        assignee: doc.data().assignee,
+        description: doc.data().description,
+        requirement: doc.data().requirement,
+        status: doc.data().status,
+        suite: doc.data().suite,
+      };
+
+      testCase = newtestCase;
+    }
+  });
+
+  return testCase;
+};
+
+//////////  //////////////////////////////////////////////////////////////////////////////////
 //----Add New Test Case to Firebase DB----//
 export const AddNewTestCase = async (testCase) => {
   try {
@@ -34,7 +60,6 @@ export const AddNewTestCase = async (testCase) => {
     console.error("Error adding document: ", e);
   }
 };
-
 
 //----Update Test Case Add To Suite----//
 export const addToSuite = async (selectedTestsCaseId) => {

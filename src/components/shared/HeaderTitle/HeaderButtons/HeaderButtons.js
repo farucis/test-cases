@@ -5,6 +5,7 @@ import Filter from "../Filter/Filter";
 import {
   AddNewTestCase,
   addToSuite,
+  getTestCaseByTitle,
 } from "../../../../BackEnd/FireStore/TestCase/TestCase";
 import useStore from "../../../../StateMan/store";
 import { setFalse } from "../../RemoveDialog/RemoveDialog";
@@ -112,6 +113,7 @@ const AddNewTestButton = ({ ...props }) => {
     status: "Open",
     Run: "No Run",
     suite: "0",
+    id: "",
   };
   const AddNewTest = useStore((state) => state.AddNewTestCase);
 
@@ -129,7 +131,11 @@ const AddNewTestButton = ({ ...props }) => {
       else if (data.Run === "Failed") data.status = "WIP";
       else if (data.Run === "No Run") data.status = "Open";
       AddNewTestCase(data);
-      AddNewTest(data);
+
+      getTestCaseByTitle(data.title).then((newData) => {
+        console.log(newData);
+        AddNewTest(newData);
+      });
     } else {
       props.setIsValid(false);
     }

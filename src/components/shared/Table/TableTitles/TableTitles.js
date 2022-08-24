@@ -79,7 +79,6 @@ const FirstTitle = ({ isSorted, setIsSorted, ...props }) => {
         setIsSorted("down");
         break;
       case "down":
-        props.setSortData(props.data.slice(0));
         setIsSorted("");
         break;
       default:

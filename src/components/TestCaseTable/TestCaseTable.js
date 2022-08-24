@@ -20,6 +20,7 @@ const TestCaseTable = () => {
   const setData = useStore((state) => state.setData);
   const sortData = useStore((state) => state.sortData);
   const setSortData = useStore((state) => state.setSortData);
+  const setTempData = useStore((state) => state.setTempData);
 
   React.useEffect(() => {
     getData();
@@ -29,6 +30,7 @@ const TestCaseTable = () => {
     const d = await GetAllTestCase();
     setData(d);
     setSortData(d.slice(0));
+    setTempData(d.slice(0));
   };
 
   return (

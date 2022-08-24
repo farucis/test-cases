@@ -24,7 +24,8 @@ const Filter = (props) => {
 
   const data = useStore((state) => state.testCase);
   const setData = useStore((state) => state.setData);
-  const sortData = useStore((state) => state.sortData);
+  const setSortData = useStore((state) => state.setSortData);
+  const tempData = useStore((state) => state.tempData);
 
   const selectDropDownHandler = () => {
     if (selectedFilterName === null) {
@@ -73,19 +74,24 @@ const Filter = (props) => {
     !selectedFilterName && setDropdownIsOpen(!DropdownisOpen);
   };
   const dialogCancelHandler = () => {
+    setInputTextValid(false);
     setDropdownData(filterDB.options[0].options.slice(0, 2));
     setFilterSelected(false);
     setSelectedFilterName("Requirement");
-    setInputTextValid(false);
 
     //setDropdownIsOpen(true);
   };
 
   const dialogApplyHandler = (item) => {
-    FilterHandler(item, data, setData, setSelectedFilterName);
+    FilterHandler(
+      item,
+      data,
+      setData,
+      setSortData,
+      setSelectedFilterName,
+      selectedFilterName
+    );
     setDropdownIsOpen(false);
-    setSelectedFilterName(null);
-    setFilterSelected(false);
     setReqFilterLock(true);
   };
 
@@ -114,7 +120,8 @@ const Filter = (props) => {
             onClick={() => {
               setSelectedFilterName(null);
               setDropdownData(filterDB.options);
-              setData(sortData.slice(0));
+              setData(tempData.slice(0));
+              setSortData(tempData.slice(0));
               setFilterSelected(false);
               setReqFilterLock(false);
             }}
@@ -128,63 +135,88 @@ const Filter = (props) => {
               <div
                 key={index}
                 className={
-                  selectedFilterName === "Start with" ||
-                  selectedFilterName === "Equals to"
+                  (selectedFilterName === "Requirement Start with" ||
+                    selectedFilterName === "Requirement Equals to") &&
+                  filterSelected
                     ? "filter-input-dropdown-item"
                     : "filter-dropdown-item"
                 }
+                style={
+                  (selectedFilterName === "Requirement Start with" ||
+                    selectedFilterName === "Requirement Equals to") &&
+                  filterSelected
+                    ? { animation: "cardBorder 0.5s alternate infinite" }
+                    : {}
+                }
                 onClick={() => {
-                  item.options && setDropdownData(item.options);
-                  setSelectedFilterName(item.name);
-                  setFilterSelected(false);
+                  if (DropdownData.length > 1) {
+                    setFilterSelected(false);
+                    setSelectedFilterName(item.name);
+                  }
+                  if (DropdownData.length !== 1) {
+                    //setFilterSelected(false);
 
-                  selectedFilterName !== null &&
-                    filterSelected === false &&
-                    setFilterSelected(true);
+                    (item.name === "Start with" || item.name === "Equals to") &&
+                      setSelectedFilterName("Requirement " + item.name);
 
-                  !item.options &&
-                    item.op !== "Requirement" &&
-                    FilterHandler(item, data, setData);
+                    !item.options &&
+                    (item.name === "Start with" || item.name === "Equals to")
+                      ? setDropdownData(filterDB.options[0].options.slice(0, 2))
+                      : setDropdownData(item.options);
 
-                  !item.options &&
-                    item.name !== "Start with" &&
-                    item.name !== "Equals to" &&
-                    setDropdownIsOpen(false);
+                    selectedFilterName !== null &&
+                      filterSelected === false &&
+                      setFilterSelected(true);
+
+                    !item.options &&
+                      item.op !== "Requirement" &&
+                      FilterHandler(item, data, setData, setSortData);
+
+                    !item.options &&
+                      item.name !== "Start with" &&
+                      item.name !== "Equals to" &&
+                      setDropdownIsOpen(false);
+                  }
                 }}
               >
                 {item.value}
-                {(selectedFilterName === "Start with" ||
-                  selectedFilterName === "Equals to") && (
-                  <div className="filter-input">
-                    <div className="filter-input-area">
-                      <input type="text" id="filterInput" onChange={onChange} />
+                {(selectedFilterName === "Requirement Start with" ||
+                  selectedFilterName === "Requirement Equals to") &&
+                  filterSelected && (
+                    <div className="filter-input">
+                      <div className="filter-input-area">
+                        <input
+                          type="text"
+                          id="filterInput"
+                          onChange={onChange}
+                        />
+                      </div>
+                      <div className="filter-input-buttons">
+                        <button
+                          className="btn-Filter"
+                          style={
+                            inputTextValid
+                              ? { backgroundColor: "rgba(134, 54, 84, 0.9)" }
+                              : { backgroundColor: "#C4C4C4" }
+                          }
+                          onClick={() => {
+                            if (inputTextValid) {
+                              dialogApplyHandler(item);
+                              setInputTextValid(true);
+                            } else setInputTextValid(false);
+                          }}
+                        >
+                          Apply
+                        </button>
+                        <button
+                          className="btn-Filter"
+                          onClick={() => dialogCancelHandler()}
+                        >
+                          Cancel
+                        </button>
+                      </div>
                     </div>
-                    <div className="filter-input-buttons">
-                      <button
-                        className="btn-Filter"
-                        style={
-                          inputTextValid
-                            ? { backgroundColor: "rgba(134, 54, 84, 0.9)" }
-                            : { backgroundColor: "#C4C4C4" }
-                        }
-                        onClick={() => {
-                          if (inputTextValid) {
-                            dialogApplyHandler(item);
-                            setInputTextValid(true);
-                          } else setInputTextValid(false);
-                        }}
-                      >
-                        Apply
-                      </button>
-                      <button
-                        className="btn-Filter"
-                        onClick={() => dialogCancelHandler()}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                )}
+                  )}
               </div>
             ))}
           </div>
@@ -196,13 +228,24 @@ const Filter = (props) => {
 
 export default Filter;
 
-const FilterHandler = (filteritem, data, setData, setSelectedFilterName) => {
+const FilterHandler = (
+  filteritem,
+  data,
+  setData,
+  setSortData,
+  setSelectedFilterName,
+  selectedFilterName
+) => {
   var result = null;
   switch (filteritem.op) {
     case "Requirement":
       const input = document.getElementById("filterInput").value;
 
-      setSelectedFilterName(input);
+      const newFilterName =
+        (input.length < 6 ? selectedFilterName : filteritem.name) +
+        ": " +
+        input;
+      setSelectedFilterName(newFilterName);
       if (filteritem.name === "Equals to")
         result = data.filter((obj) => obj.requirement === input);
       else if (filteritem.name === "Start with")
@@ -210,22 +253,25 @@ const FilterHandler = (filteritem, data, setData, setSelectedFilterName) => {
           obj.requirement.toLowerCase().startsWith(input.toLowerCase())
         );
       setData(result);
+      setSortData(result.slice(0));
       break;
 
     case "Assignee":
       result = data.filter((obj) => obj.assignee === filteritem.name);
-
       setData(result);
+      setSortData(result.slice(0));
       break;
 
     case "Run":
       result = data.filter((obj) => obj.Run === filteritem.name);
       setData(result);
+      setSortData(result.slice(0));
       break;
 
     case "Status":
       result = data.filter((obj) => obj.status === filteritem.name);
       setData(result);
+      setSortData(result.slice(0));
       break;
 
     default:
@@ -245,7 +291,11 @@ const filterDB = {
           name: "Start with",
           value: "Start with",
           options: [
-            { op: "Requirement", name: "Start with", value: "Start with" },
+            {
+              op: "Requirement",
+              name: "Start with",
+              value: "Start with",
+            },
           ],
         },
         {
@@ -253,7 +303,11 @@ const filterDB = {
           name: "Equals to",
           value: "Equals to",
           options: [
-            { op: "Requirement", name: "Equals to", value: "Equals to" },
+            {
+              op: "Requirement",
+              name: "Equals to",
+              value: "Equals to",
+            },
           ],
         },
       ],
