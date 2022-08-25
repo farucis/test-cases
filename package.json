@@ -1,7 +1,7 @@
 {
   "name": "test-case",
   "version": "0.1.0",
-  "homepage": "https://git.heroku.com/test-case-app-r.git/",
+  "homepage": "https://git.heroku.com/test-case-app-r.git",
   "private": false,
   "engines": {
     "node": "16.x",
