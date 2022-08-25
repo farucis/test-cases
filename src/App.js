@@ -10,8 +10,9 @@ function App() {
   const [isSelected, setIsSelected] = React.useState("Tests");
 
   return (
-    <div className="App" style={{backgroundColor:"#fff"}} >
-      app for heroku test
+    <div className="App">
+      <MenuNavBar isSelected={isSelected} setIsSelected={setIsSelected} />
+      <section>{selectSection(isSelected)}</section>
     </div>
   );
 }
