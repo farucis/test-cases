@@ -8,31 +8,41 @@ const DescriptionInput = () => {
   const [fontSize, setFontSize] = React.useState("16px");
 
   const descriptionInput = document.getElementById("descriptionInput");
+
   if (descriptionInput) {
     descriptionInput.style.fontWeight = bold ? "bold" : "normal";
     descriptionInput.style.fontStyle = italic ? "italic" : "normal";
     descriptionInput.style.fontSize = fontSize;
-
-    document.addEventListener("click", function (event) {
-      var Element = document.getElementById("inputEffects");
-      var isClickInsideElement = Element?.contains(event.target);
-      if (isClickInsideElement) {
-        descriptionInput.focus();
-      }
-    });
   }
 
-  //descriptionInput.focus();
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const inputHandler = (e) => {
+    const nameInputElement = e.target;
+
+    if (!isOpen) {
+      nameInputElement.onblur = () => {
+        nameInputElement.focus();
+      };
+      setIsOpen(true);
+    } else {
+      nameInputElement.onblur = () => {
+        nameInputElement.blur();
+      };
+      setIsOpen(false);
+    }
+  };
+
   return (
-    <label className="description-input-container">
-      <input id="descriptionInput" type="textarea" />
+    <label className="description-input-container" id="descriptionContainer">
+      <input id="descriptionInput" type="textarea" onClick={inputHandler} />
       <span className="input-label">description</span>
-      <label id="inputEffects" className="input-effects">
+      <div id="inputEffects" className="input-effects">
         <BoldButton bold={bold} setBold={setBold} />
         <ItalicButton italic={italic} setItalic={setItalic} />
         <AttachButton />
         <FontSizeSelector fontSize={fontSize} setFontSize={setFontSize} />
-      </label>
+      </div>
     </label>
   );
 };
@@ -41,25 +51,29 @@ export default DescriptionInput;
 
 const BoldButton = ({ bold, setBold }) => {
   return (
-    <button
-      className="input-effects-button"
-      style={bold ? { fontWeight: "900", fontSize: "20px" } : {}}
-      onClick={() => setBold(!bold)}
-    >
-      <Icon icon="fluent:text-bold-24-regular" />
-    </button>
+    <div>
+      <button
+        className="input-effects-button"
+        style={bold ? { fontWeight: "900", fontSize: "20px" } : {}}
+        onClick={() => setBold(!bold)}
+      >
+        <Icon icon="fluent:text-bold-24-regular" />
+      </button>
+    </div>
   );
 };
 
 const ItalicButton = ({ italic, setItalic }) => {
   return (
-    <button
-      className="input-effects-button"
-      style={italic ? { fontWeight: "900", fontSize: "20px" } : {}}
-      onClick={() => setItalic(!italic)}
-    >
-      <Icon icon="ant-design:italic-outlined" />
-    </button>
+    <div>
+      <button
+        className="input-effects-button"
+        style={italic ? { fontWeight: "900", fontSize: "20px" } : {}}
+        onClick={() => setItalic(!italic)}
+      >
+        <Icon icon="ant-design:italic-outlined" />
+      </button>
+    </div>
   );
 };
 

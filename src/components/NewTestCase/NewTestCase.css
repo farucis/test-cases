@@ -20,12 +20,14 @@
   padding-top: 30px;
 }
 
-.input-container input {
+.input-container > input {
   border-radius: 50px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 50px;
   padding: 15px;
+  transition: visibility 0.1s ease-out;
+  color: rgb(255, 255, 255);
   cursor: pointer;
 }
 
@@ -41,11 +43,6 @@
 .input-label span {
   font-size: 18px;
   color: rgb(251, 56, 56);
-}
-
-.input-container > input {
-  transition: visibility 0.1s ease-out;
-  color: rgb(255, 255, 255);
 }
 
 .input-container > input:focus {

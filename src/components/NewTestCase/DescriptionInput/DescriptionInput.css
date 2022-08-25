@@ -17,30 +17,30 @@
 
 .input-effects {
   visibility: hidden;
-  position: absolute;
   height: 32px;
-  width: 87.5%;
+  position: absolute;
+  width: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   left: 15px;
-  gap: 15px;
   margin-top: 4px;
-  margin-left: 4px;
-  transition: visibility 0.1s ease-in-out;
   font-size: 15px;
+  display: flex;
+  top: 178px;
 }
 
 input:focus ~ .input-effects {
   visibility: visible;
+  width: 87.5%;
 }
 
 .input-effects-button {
-  margin-left: 10px;
-  width: 34px;
-  height: 34px;
+  margin-left: 1px;
+  width: 30px;
+  height: 30px;
   color: rgb(0, 0, 0);
-  margin-top: -2px;
 }
 
 .custom-file-input {
   width: 0;
+  visibility: hidden;
 }

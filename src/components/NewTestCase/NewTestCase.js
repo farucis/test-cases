@@ -30,13 +30,36 @@ const NewTestCase = ({ setAddNewSelected }) => {
 export default NewTestCase;
 
 const NameInput = (props) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const inputHandler = (e) => {
+    const nameInputElement = e.target;
+
+    if (!isOpen) {
+      nameInputElement.onblur = () => {
+        nameInputElement.focus();
+      };
+      setIsOpen(true);
+    } else {
+      nameInputElement.onblur = () => {
+        nameInputElement.blur();
+      };
+      setIsOpen(false);
+    }
+  };
+
   return (
     <label className="input-container">
-      <input id="nameInput" onChange={() => props.setIsValid(true)} required />
+      <input
+        id="nameInput"
+        onChange={() => props.setIsValid(true)}
+        onClick={inputHandler}
+        required
+      />
       <span className="input-label">
         Name<span>*</span>
       </span>
-      {!props.isValid && (
+      {!props.isValid && isOpen && (
         <span
           style={{
             display: "flex",
@@ -46,7 +69,7 @@ const NameInput = (props) => {
             color: "red",
           }}
         >
-          * Test Name Cant Be Empty
+          * Test Case Name Cant Be Empty
         </span>
       )}
     </label>
