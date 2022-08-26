@@ -1,0 +1,28 @@
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.loading{
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  height: 60%;
+  
+
+}
+
+.openApp{
+ background-color: #001e31;
+ 
+}
+
+.loading > img{
+height:60px;
+
+}
