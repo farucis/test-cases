@@ -3,6 +3,7 @@ import "./Table.css";
 import useStore from "../../../StateMan/store";
 
 import TableTitles from "./TableTitles/TableTitles";
+import Loading from "../Loading/Loading";
 
 //--------Export Default Table--------//
 const Table = ({
@@ -14,6 +15,14 @@ const Table = ({
   setSelectAllCheckBoxs,
 }) => {
   const [isSorted, setIsSorted] = React.useState("");
+  const [isLoding, setIsLoding] = React.useState(false);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsLoding(true);
+    }, 800);
+  }, []);
+
   return (
     <div className="tables-container" style={{ paddingTop: "30px" }}>
       <table className="table">
@@ -27,9 +36,9 @@ const Table = ({
           setCheckBoxSelected={setCheckBoxSelected}
           setSelectAllCheckBoxs={setSelectAllCheckBoxs}
         />
-
-        {isSorted === ""
-          ? data?.map((testcase, index) => (
+        {data && isLoding ? (
+          isSorted === "" ? (
+            data?.map((testcase, index) => (
               <TableRow
                 key={index}
                 testcase={testcase}
@@ -37,14 +46,19 @@ const Table = ({
                 setSelectAllCheckBoxs={setSelectAllCheckBoxs}
               />
             ))
-          : sortData?.map((testcase, index) => (
+          ) : (
+            sortData?.map((testcase, index) => (
               <TableRow
                 key={index}
                 testcase={testcase}
                 setCheckBoxSelected={setCheckBoxSelected}
                 setSelectAllCheckBoxs={setSelectAllCheckBoxs}
               />
-            ))}
+            ))
+          )
+        ) : (
+          <Loading />
+        )}
       </table>
     </div>
   );
