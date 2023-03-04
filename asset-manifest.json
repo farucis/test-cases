@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/test-cases/static/css/main.6ea49b4b.css",
+    "main.js": "/test-cases/static/js/main.94e18579.js",
+    "static/js/787.344e28ff.chunk.js": "/test-cases/static/js/787.344e28ff.chunk.js",
+    "static/media/audiocodes--600.png": "/test-cases/static/media/audiocodes--600.38cbb880604422f564bb.png",
+    "index.html": "/test-cases/index.html",
+    "main.6ea49b4b.css.map": "/test-cases/static/css/main.6ea49b4b.css.map",
+    "main.94e18579.js.map": "/test-cases/static/js/main.94e18579.js.map",
+    "787.344e28ff.chunk.js.map": "/test-cases/static/js/787.344e28ff.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6ea49b4b.css",
+    "static/js/main.94e18579.js"
+  ]
+}
