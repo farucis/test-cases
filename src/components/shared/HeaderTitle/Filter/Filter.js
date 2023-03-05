@@ -95,6 +95,13 @@ const Filter = (props) => {
     setReqFilterLock(true);
   };
 
+  const filterInput = document.getElementById("filterInput");
+
+  filterInput &&
+    (filterInput.onblur = () => {
+      filterInput.focus();
+    });
+
   return (
     <div>
       <label className="filter-select" onClick={selectDropDownHandler}>
